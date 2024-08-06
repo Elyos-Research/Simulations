@@ -1,0 +1,34 @@
+component ideal_comparator
+% ideal_comparator
+% Component automatically generated from a SPICE netlist for subcircuit IDEAL_COMPARATOR.
+%   MATLAB version: 23.2.
+%   Simscape Electrical version: 23.2.
+%   Simscape code generated on: 08-Jul-2024 21:07:46
+
+
+    nodes
+        node_1 = foundation.electrical.electrical; % node_1
+        node_2 = foundation.electrical.electrical; % node_2
+        node_3 = foundation.electrical.electrical; % node_3
+        vdd = foundation.electrical.electrical; % vdd
+    end
+
+    components(ExternalAccess=observe)
+        S3 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={0,'V'},VH={1e-06,'V'},Roff_gmin=1,ROFF={10000000,'Ohm'}, ...
+            RON={0.001,'Ohm'},TD={0,'s'});
+        S4 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={0,'V'},VH={1e-06,'V'},Roff_gmin=1,ROFF={10000000,'Ohm'}, ...
+            RON={0.001,'Ohm'},TD={0,'s'});
+    end
+
+    connections
+        connect(S3.p2,node_3);
+        connect(S3.n2,vdd);
+        connect(S3.p1,node_1);
+        connect(S3.n1,node_2);
+        connect(S4.p2,*);
+        connect(S4.n2,node_3);
+        connect(S4.p1,node_2);
+        connect(S4.n1,node_1);
+    end
+
+end

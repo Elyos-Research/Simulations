@@ -1,0 +1,74 @@
+component ideal_buffercd
+% ideal_buffercd
+% Component automatically generated from a SPICE netlist for subcircuit IDEAL_BUFFERCD.
+%   MATLAB version: 23.2.
+%   Simscape Electrical version: 23.2.
+%   Simscape code generated on: 08-Jul-2024 21:07:46
+
+
+    nodes
+        a = foundation.electrical.electrical; % a
+        y = foundation.electrical.electrical; % y
+        vdd = foundation.electrical.electrical; % vdd
+    end
+
+    nodes(Access=protected, ExternalAccess=none)
+        n001 = foundation.electrical.electrical;
+    end
+
+    annotations
+        UILayout = [
+            UIGroup('Parasitic elements', ...
+                    specifyParasiticValues, capacitorSeriesResistance)
+                   ]
+    end
+
+    parameters
+        specifyParasiticValues = ee.enum.include.no;    % Specify parasitic values
+    end
+
+    parameters(ExternalAccess=none)
+        capacitorSeriesResistance = {0, 'Ohm'};    % Capacitor parasitic series resistance
+    end
+
+    if specifyParasiticValues == ee.enum.include.yes
+        annotations
+            [capacitorSeriesResistance] : ExternalAccess=modify;
+        end
+    end
+
+    variables
+        E1 = {value={0,'A'},priority=priority.none};
+    end
+
+    components(ExternalAccess=observe)
+        S3 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={0,'V'},VH={1e-05,'V'},Roff_gmin=1,ROFF={10000000,'Ohm'}, ...
+            RON={1,'Ohm'},TD={0,'s'});
+        S4 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={0,'V'},VH={1e-05,'V'},Roff_gmin=1,ROFF={10000000,'Ohm'}, ...
+            RON={1,'Ohm'},TD={0,'s'});
+        C1 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+    end
+
+    connections
+        connect(S3.p2,y);
+        connect(S3.n2,vdd);
+        connect(S3.p1,a);
+        connect(S3.n1,n001);
+        connect(S4.p2,*);
+        connect(S4.n2,y);
+        connect(S4.p1,n001);
+        connect(S4.n1,a);
+        connect(C1.p,y);
+        connect(C1.n,*);
+    end
+
+    branches
+        E1: n001.i -> *;
+    end
+
+    equations
+        value(n001.v,'V') == (0.5)*value(vdd.v,'V');
+    end
+
+end

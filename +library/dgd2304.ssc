@@ -1,0 +1,581 @@
+component dgd2304
+% dgd2304
+% Component automatically generated from a SPICE netlist for subcircuit DGD2304.
+%   MATLAB version: 23.2.
+%   Simscape Electrical version: 23.2.
+%   Simscape code generated on: 08-Jul-2024 21:07:44
+%
+% The subcircuit2ssc function does not support these SPICE parameters:
+%    D10: af = 1
+%    D10: kf = 0
+%    D11: af = 1
+%    D11: kf = 0
+%    D12: af = 1
+%    D12: kf = 0
+%    D1: af = 1
+%    D1: kf = 0
+%    D2: af = 1
+%    D2: kf = 0
+%    D3: af = 1
+%    D3: kf = 0
+%    D4: af = 1
+%    D4: kf = 0
+%    D5: af = 1
+%    D5: kf = 0
+%    D6: af = 1
+%    D6: kf = 0
+%    D7: af = 1
+%    D7: kf = 0
+%    D8: af = 1
+%    D8: kf = 0
+%    D9: af = 1
+%    D9: kf = 0
+%    R10: tol 1
+%    R12: tol 1
+%    R6: tol 1
+%    R7: tol 1
+%    R9: tol 1
+% If possible, you have to manually implement them to achieve complete
+% functionality. Refer to the documentation page of the blocks relevant to
+% your conversion inside the Simscape Electrical Additional Components
+% library.
+
+
+    nodes
+        vcc = foundation.electrical.electrical; % vcc
+        hin = foundation.electrical.electrical; % hin
+        lin = foundation.electrical.electrical; % lin
+        com = foundation.electrical.electrical; % com
+        lo = foundation.electrical.electrical; % lo
+        vs = foundation.electrical.electrical; % vs
+        ho = foundation.electrical.electrical; % ho
+        vb = foundation.electrical.electrical; % vb
+    end
+
+    nodes(Access=protected, ExternalAccess=none)
+        uvvc = foundation.electrical.electrical;
+        hinst = foundation.electrical.electrical;
+        bias1 = foundation.electrical.electrical;
+        linst = foundation.electrical.electrical;
+        cdh = foundation.electrical.electrical;
+        ondlyh = foundation.electrical.electrical;
+        ondlyl = foundation.electrical.electrical;
+        dlyoutl = foundation.electrical.electrical;
+        drvlp = foundation.electrical.electrical;
+        illp = foundation.electrical.electrical;
+        illn = foundation.electrical.electrical;
+        drvln = foundation.electrical.electrical;
+        onh = foundation.electrical.electrical;
+        drvhp = foundation.electrical.electrical;
+        ilhp = foundation.electrical.electrical;
+        ilhn = foundation.electrical.electrical;
+        drvhn = foundation.electrical.electrical;
+        uvbs = foundation.electrical.electrical;
+        bias2 = foundation.electrical.electrical;
+        offconth = foundation.electrical.electrical;
+        offdlyh = foundation.electrical.electrical;
+        onconth = foundation.electrical.electrical;
+        cdl = foundation.electrical.electrical;
+        offcontl = foundation.electrical.electrical;
+        offdlyl = foundation.electrical.electrical;
+        oncontl = foundation.electrical.electrical;
+        lino = foundation.electrical.electrical;
+        lovc = foundation.electrical.electrical;
+        hino = foundation.electrical.electrical;
+        hivc = foundation.electrical.electrical;
+        dlyouth = foundation.electrical.electrical;
+        onhrs = foundation.electrical.electrical;
+        onlrs = foundation.electrical.electrical;
+        hinstb = foundation.electrical.electrical;
+        hdelay = foundation.electrical.electrical;
+        ldelayb = foundation.electrical.electrical;
+        linstb = foundation.electrical.electrical;
+        hdelayb = foundation.electrical.electrical;
+        ldelay = foundation.electrical.electrical;
+        bias4 = foundation.electrical.electrical;
+        dlyhn = foundation.electrical.electrical;
+        bias5 = foundation.electrical.electrical;
+        dlyhp = foundation.electrical.electrical;
+        bias6 = foundation.electrical.electrical;
+        dlyln = foundation.electrical.electrical;
+        bias7 = foundation.electrical.electrical;
+        dlylp = foundation.electrical.electrical;
+    end
+
+    annotations
+        UILayout = [
+            UIGroup('Parasitic elements', ...
+                    specifyParasiticValues, capacitorSeriesResistance)
+            UIGroup('Smoothing functions', ...
+                    specifySmoothValues, aWarning, expXh, expXl)
+                   ]
+    end
+
+    parameters
+        specifyParasiticValues = ee.enum.include.no;    % Specify parasitic values
+    end
+
+    parameters(ExternalAccess=none)
+        capacitorSeriesResistance = {0, 'Ohm'};    % Capacitor parasitic series resistance
+    end
+
+    if specifyParasiticValues == ee.enum.include.yes
+        annotations
+            [capacitorSeriesResistance] : ExternalAccess=modify;
+        end
+    end
+
+    parameters
+        specifySmoothValues = ee.enum.include.no;    % Specify function smooth parameters
+    end
+
+    parameters(ExternalAccess=none)
+        aWarning = ee.enum.include.no;    % Include warning
+        expXh = {Inf, '1'};    % Upper boundary of linear extrapolation for exp(x), typical x=80
+        expXl = {-Inf, '1'};    % Lower boundary of linear extrapolation for exp(x), typical x=-80
+    end
+
+    if specifySmoothValues == ee.enum.include.yes
+        annotations
+            [aWarning, expXh, expXl] : ExternalAccess=modify;
+        end
+    end
+
+    parameters(Access=private,ExternalAccess=none)
+        cdelay = {1e-11, '1'};
+        rdelay = {15300, '1'};
+        t1 = {-40, '1'};
+        t2 = {25, '1'};
+        t3 = {125, '1'};
+        v1 = {10, '1'};
+        v2 = {15, '1'};
+        v3 = {20, '1'};
+        tofft2 = {1e-07, '1'};
+        tont2 = {9.5e-08, '1'};
+    end
+
+    variables
+        E1 = {value={0,'A'},priority=priority.none};
+        E2 = {value={0,'A'},priority=priority.none};
+        BDLYOFF1 = {value={0,'A'},priority=priority.none};
+        BDLYON1 = {value={0,'A'},priority=priority.none};
+        BDLYOFF2 = {value={0,'A'},priority=priority.none};
+        BDLYON2 = {value={0,'A'},priority=priority.none};
+        E3 = {value={0,'A'},priority=priority.none};
+        E4 = {value={0,'A'},priority=priority.none};
+        E5 = {value={0,'A'},priority=priority.none};
+        E6 = {value={0,'A'},priority=priority.none};
+    end
+
+    components(ExternalAccess=observe)
+        C1 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        S1 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={1.5,'V'},VH={0.15,'V'},Roff_gmin=1,ROFF={0.001,'Ohm'}, ...
+            RON={10000000,'Ohm'},TD={0,'s'});
+        C2 = foundation.electrical.elements.capacitor(c={(0.01*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        D1 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'},IKF={Inf,'A/m^2'}, ...
+            ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'},C_param={2,'1'}, ...
+            CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={25,'V'},IBV={0.0001,'A/m^2'},IBVL={1e-10,'A/m^2'}, ...
+            NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'},TRS2={0,'K^-2'},TBV1={0,'K^-1'}, ...
+            TBV2={0,'K^-2'});
+        D2 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'},IKF={Inf,'A/m^2'}, ...
+            ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'},C_param={2,'1'}, ...
+            CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={25,'V'},IBV={0.0001,'A/m^2'},IBVL={1e-10,'A/m^2'}, ...
+            NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'},TRS2={0,'K^-2'},TBV1={0,'K^-1'}, ...
+            TBV2={0,'K^-2'});
+        R1 = foundation.electrical.elements.resistor(R={(1*1000000),'Ohm'});
+        R2 = foundation.electrical.elements.resistor(R={(100*1000),'Ohm'});
+        S2 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={8.35,'V'},VH={0.35,'V'},Roff_gmin=1,ROFF={0.001,'Ohm'}, ...
+            RON={10000000,'Ohm'},TD={0,'s'});
+        S3 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={1.5,'V'},VH={0.15,'V'},Roff_gmin=1,ROFF={0.001,'Ohm'}, ...
+            RON={10000000,'Ohm'},TD={0,'s'});
+        C3 = foundation.electrical.elements.capacitor(c={(0.01*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        R3 = foundation.electrical.elements.resistor(R={(1*1000000),'Ohm'});
+        R4 = foundation.electrical.elements.resistor(R={(100*1000),'Ohm'});
+        D3 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'},IKF={Inf,'A/m^2'}, ...
+            ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'},C_param={2,'1'}, ...
+            CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={25,'V'},IBV={0.0001,'A/m^2'},IBVL={1e-10,'A/m^2'}, ...
+            NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'},TRS2={0,'K^-2'},TBV1={0,'K^-1'}, ...
+            TBV2={0,'K^-2'});
+        D4 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'},IKF={Inf,'A/m^2'}, ...
+            ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'},C_param={2,'1'}, ...
+            CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={25,'V'},IBV={0.0001,'A/m^2'},IBVL={1e-10,'A/m^2'}, ...
+            NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'},TRS2={0,'K^-2'},TBV1={0,'K^-1'}, ...
+            TBV2={0,'K^-2'});
+        C4 = foundation.electrical.elements.capacitor(c={(50*1e-09),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        C5 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        C6 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        D5 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'},IKF={Inf,'A/m^2'}, ...
+            ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'},C_param={2,'1'}, ...
+            CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={25,'V'},IBV={0.0001,'A/m^2'},IBVL={1e-10,'A/m^2'}, ...
+            NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'},TRS2={0,'K^-2'},TBV1={0,'K^-1'}, ...
+            TBV2={0,'K^-2'});
+        R5 = foundation.electrical.elements.resistor(R={(59.3*1000),'Ohm'});
+        D6 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'},IKF={Inf,'A/m^2'}, ...
+            ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'},C_param={2,'1'}, ...
+            CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={625,'V'},IBV={0.0001,'A/m^2'},IBVL={1e-10,'A/m^2'}, ...
+            NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'},TRS2={0,'K^-2'},TBV1={0,'K^-1'}, ...
+            TBV2={0,'K^-2'});
+        D7 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'},IKF={Inf,'A/m^2'}, ...
+            ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'},C_param={2,'1'}, ...
+            CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={25,'V'},IBV={0.0001,'A/m^2'},IBVL={1e-10,'A/m^2'}, ...
+            NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'},TRS2={0,'K^-2'},TBV1={0,'K^-1'}, ...
+            TBV2={0,'K^-2'});
+        C7 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        S4 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={1.5,'V'},VH={1.2,'V'},Roff_gmin=1,ROFF={10000000,'Ohm'}, ...
+            RON={0.001,'Ohm'},TD={0,'s'});
+        S5 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={1.5,'V'},VH={1.2,'V'},Roff_gmin=1,ROFF={0.001,'Ohm'}, ...
+            RON={10000000,'Ohm'},TD={0,'s'});
+        R6 = foundation.electrical.elements.resistor(R={22.2,'Ohm'});
+        R7 = foundation.electrical.elements.resistor(R={11.2,'Ohm'});
+        C8 = foundation.electrical.elements.capacitor(c={(0.4*1e-09),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        D8 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'},IKF={Inf,'A/m^2'}, ...
+            ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'},C_param={2,'1'}, ...
+            CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={25,'V'},IBV={0.0001,'A/m^2'},IBVL={1e-10,'A/m^2'}, ...
+            NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'},TRS2={0,'K^-2'},TBV1={0,'K^-1'}, ...
+            TBV2={0,'K^-2'});
+        D9 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'},IKF={Inf,'A/m^2'}, ...
+            ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'},C_param={2,'1'}, ...
+            CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={25,'V'},IBV={0.0001,'A/m^2'},IBVL={1e-10,'A/m^2'}, ...
+            NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'},TRS2={0,'K^-2'},TBV1={0,'K^-1'}, ...
+            TBV2={0,'K^-2'});
+        R8 = foundation.electrical.elements.resistor(R={(250*1000),'Ohm'});
+        C9 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        S6 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={1.5,'V'},VH={1.2,'V'},Roff_gmin=1,ROFF={10000000,'Ohm'}, ...
+            RON={0.001,'Ohm'},TD={0,'s'});
+        S7 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={1.5,'V'},VH={1.2,'V'},Roff_gmin=1,ROFF={0.001,'Ohm'}, ...
+            RON={10000000,'Ohm'},TD={0,'s'});
+        R9 = foundation.electrical.elements.resistor(R={22.2,'Ohm'});
+        R10 = foundation.electrical.elements.resistor(R={11.2,'Ohm'});
+        C10 = foundation.electrical.elements.capacitor(c={(0.4*1e-09),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        D10 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'}, ...
+            IKF={Inf,'A/m^2'},ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'}, ...
+            C_param={2,'1'},CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={25,'V'},IBV={0.0001,'A/m^2'}, ...
+            IBVL={1e-10,'A/m^2'},NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'}, ...
+            TRS2={0,'K^-2'},TBV1={0,'K^-1'},TBV2={0,'K^-2'});
+        D11 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'}, ...
+            IKF={Inf,'A/m^2'},ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'}, ...
+            C_param={2,'1'},CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={25,'V'},IBV={0.0001,'A/m^2'}, ...
+            IBVL={1e-10,'A/m^2'},NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'}, ...
+            TRS2={0,'K^-2'},TBV1={0,'K^-1'},TBV2={0,'K^-2'});
+        R11 = foundation.electrical.elements.resistor(R={(1*1000),'Ohm'});
+        S8 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={8.35,'V'},VH={0.35,'V'},Roff_gmin=1,ROFF={0.001,'Ohm'}, ...
+            RON={10000000,'Ohm'},TD={0,'s'});
+        C11 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        R12 = foundation.electrical.elements.resistor(R={(1*1000),'Ohm'});
+        XX1 = library.ideal_comparator();
+        XX2 = library.ideal_comparator();
+        XX3 = library.ideal_comparator();
+        XX4 = library.ideal_comparator();
+        D12 = ee.additional.spice_semiconductors.spice_diode(AREA={1,'m^2'},SCALE={1,'1'},IS={1e-14,'A/m^2'}, ...
+            IKF={Inf,'A/m^2'},ISR={0,'A/m^2'},N={1,'1'},NR={2,'1'},M={0.333,'1'},VJ={0.75,'V'},RS={0.01,'Ohm*m^2'}, ...
+            C_param={2,'1'},CJO={0,'F/m^2'},FC={0.5,'1'},TT={0,'s'},RevBrk={2,'1'},BV={625,'V'},IBV={0.0001,'A/m^2'}, ...
+            IBVL={1e-10,'A/m^2'},NBV={1,'1'},NBVL={1,'1'},XTI={3,'1'},EG={1.11,'eV'},TIKF={0,'K^-1'},TRS1={0,'K^-1'}, ...
+            TRS2={0,'K^-2'},TBV1={0,'K^-1'},TBV2={0,'K^-2'});
+        C12 = foundation.electrical.elements.capacitor(c={(50*1e-09),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        XX5 = library.ideal_nand_2(capacitorSeriesResistance=capacitorSeriesResistance);
+        XX6 = library.ideal_nand_2(capacitorSeriesResistance=capacitorSeriesResistance);
+        XX7 = library.ideal_buffercd(capacitorSeriesResistance=capacitorSeriesResistance);
+        XX8 = library.ideal_buffercd(capacitorSeriesResistance=capacitorSeriesResistance);
+        XX9 = library.nor_2();
+        XX10 = library.nor_2();
+        XX11 = library.nor_2();
+        XX12 = library.nor_2();
+        C13 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        XX13 = library.ideal_and_2(capacitorSeriesResistance=capacitorSeriesResistance);
+        R13 = foundation.electrical.elements.resistor(R={rdelay,'Ohm'});
+        C14 = foundation.electrical.elements.capacitor(c={cdelay,'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        XX14 = library.ideal_nor_2(capacitorSeriesResistance=capacitorSeriesResistance);
+        XX16 = library.ideal_nor_2(capacitorSeriesResistance=capacitorSeriesResistance);
+        R14 = foundation.electrical.elements.resistor(R={rdelay,'Ohm'});
+        C15 = foundation.electrical.elements.capacitor(c={cdelay,'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        XX15 = library.ideal_inverter(capacitorSeriesResistance=capacitorSeriesResistance);
+        XX17 = library.ideal_inverter(capacitorSeriesResistance=capacitorSeriesResistance);
+        XX18 = library.ideal_inverter(capacitorSeriesResistance=capacitorSeriesResistance);
+        XX19 = library.ideal_inverter(capacitorSeriesResistance=capacitorSeriesResistance);
+        R17 = foundation.electrical.elements.resistor(R={(10*1000),'Ohm'});
+        C16 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        R18 = foundation.electrical.elements.resistor(R={(10*1000),'Ohm'});
+        C17 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        S9 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={5,'V'},VH={0.01,'V'},Roff_gmin=1,ROFF={0.001,'Ohm'}, ...
+            RON={29.25,'Ohm'},TD={0,'s'});
+        S10 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={5,'V'},VH={0.01,'V'},Roff_gmin=1,ROFF={0.001,'Ohm'}, ...
+            RON={13.75,'Ohm'},TD={0,'s'});
+        R19 = foundation.electrical.elements.resistor(R={(10*1000),'Ohm'});
+        C18 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        R20 = foundation.electrical.elements.resistor(R={(10*1000),'Ohm'});
+        C19 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+        S11 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={5,'V'},VH={0.01,'V'},Roff_gmin=1,ROFF={0.001,'Ohm'}, ...
+            RON={29.25,'Ohm'},TD={0,'s'});
+        S12 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={5,'V'},VH={0.01,'V'},Roff_gmin=1,ROFF={0.001,'Ohm'}, ...
+            RON={13.75,'Ohm'},TD={0,'s'});
+    end
+
+    connections
+        connect(C1.p,uvvc);
+        connect(C1.n,com);
+        connect(S1.p2,com);
+        connect(S1.n2,hinst);
+        connect(S1.p1,hin);
+        connect(S1.n1,com);
+        connect(C2.p,hinst);
+        connect(C2.n,com);
+        connect(D1.p,com);
+        connect(D1.n,hin);
+        connect(D2.p,hin);
+        connect(D2.n,vcc);
+        connect(R1.p,hin);
+        connect(R1.n,com);
+        connect(R2.p,bias1);
+        connect(R2.n,hinst);
+        connect(S2.p2,com);
+        connect(S2.n2,uvvc);
+        connect(S2.p1,vcc);
+        connect(S2.n1,com);
+        connect(S3.p2,com);
+        connect(S3.n2,linst);
+        connect(S3.p1,lin);
+        connect(S3.n1,com);
+        connect(C3.p,linst);
+        connect(C3.n,com);
+        connect(R3.p,lin);
+        connect(R3.n,com);
+        connect(R4.p,linst);
+        connect(R4.n,bias1);
+        connect(D3.p,com);
+        connect(D3.n,lin);
+        connect(D4.p,lin);
+        connect(D4.n,vcc);
+        connect(C4.p,cdh);
+        connect(C4.n,com);
+        connect(C5.p,ondlyh);
+        connect(C5.n,com);
+        connect(C6.p,ondlyl);
+        connect(C6.n,com);
+        connect(D5.p,com);
+        connect(D5.n,vcc);
+        connect(R5.p,vcc);
+        connect(R5.n,com);
+        connect(D6.p,com);
+        connect(D6.n,vs);
+        connect(D7.p,vs);
+        connect(D7.n,vb);
+        connect(C7.p,dlyoutl);
+        connect(C7.n,com);
+        connect(S4.p2,drvlp);
+        connect(S4.n2,illp);
+        connect(S4.p1,dlyoutl);
+        connect(S4.n1,com);
+        connect(S5.p2,illn);
+        connect(S5.n2,drvln);
+        connect(S5.p1,dlyoutl);
+        connect(S5.n1,com);
+        connect(R6.p,drvlp);
+        connect(R6.n,lo);
+        connect(R7.p,drvln);
+        connect(R7.n,lo);
+        connect(C8.p,lo);
+        connect(C8.n,com);
+        connect(D8.p,com);
+        connect(D8.n,lo);
+        connect(D9.p,lo);
+        connect(D9.n,vcc);
+        connect(R8.p,vb);
+        connect(R8.n,vs);
+        connect(C9.p,onh);
+        connect(C9.n,com);
+        connect(S6.p2,drvhp);
+        connect(S6.n2,ilhp);
+        connect(S6.p1,onh);
+        connect(S6.n1,com);
+        connect(S7.p2,ilhn);
+        connect(S7.n2,drvhn);
+        connect(S7.p1,onh);
+        connect(S7.n1,com);
+        connect(R9.p,drvhp);
+        connect(R9.n,ho);
+        connect(R10.p,drvhn);
+        connect(R10.n,ho);
+        connect(C10.p,ho);
+        connect(C10.n,vs);
+        connect(D10.p,vs);
+        connect(D10.n,ho);
+        connect(D11.p,ho);
+        connect(D11.n,vb);
+        connect(R11.p,uvvc);
+        connect(R11.n,bias1);
+        connect(S8.p2,com);
+        connect(S8.n2,uvbs);
+        connect(S8.p1,vb);
+        connect(S8.n1,vs);
+        connect(C11.p,uvbs);
+        connect(C11.n,com);
+        connect(R12.p,uvbs);
+        connect(R12.n,bias2);
+        connect(XX1.node_1,cdh);
+        connect(XX1.node_2,offconth);
+        connect(XX1.node_3,offdlyh);
+        connect(XX1.vdd,vcc);
+        connect(XX2.node_1,onconth);
+        connect(XX2.node_2,cdh);
+        connect(XX2.node_3,ondlyh);
+        connect(XX2.vdd,vcc);
+        connect(XX3.node_1,cdl);
+        connect(XX3.node_2,offcontl);
+        connect(XX3.node_3,offdlyl);
+        connect(XX3.vdd,vcc);
+        connect(XX4.node_1,oncontl);
+        connect(XX4.node_2,cdl);
+        connect(XX4.node_3,ondlyl);
+        connect(XX4.vdd,vcc);
+        connect(D12.p,com);
+        connect(D12.n,vb);
+        connect(C12.p,cdl);
+        connect(C12.n,com);
+        connect(XX5.a,lino);
+        connect(XX5.b,uvvc);
+        connect(XX5.y,lovc);
+        connect(XX5.vdd,vcc);
+        connect(XX6.a,uvvc);
+        connect(XX6.b,hino);
+        connect(XX6.y,hivc);
+        connect(XX6.vdd,vcc);
+        connect(XX7.a,lovc);
+        connect(XX7.y,cdl);
+        connect(XX7.vdd,vcc);
+        connect(XX8.a,hivc);
+        connect(XX8.y,cdh);
+        connect(XX8.vdd,vcc);
+        connect(XX9.a,ondlyh);
+        connect(XX9.b,dlyouth);
+        connect(XX9.y,onhrs);
+        connect(XX9.vdd,vcc);
+        connect(XX10.a,offdlyh);
+        connect(XX10.b,onhrs);
+        connect(XX10.y,dlyouth);
+        connect(XX10.vdd,vcc);
+        connect(XX11.a,ondlyl);
+        connect(XX11.b,dlyoutl);
+        connect(XX11.y,onlrs);
+        connect(XX11.vdd,vcc);
+        connect(XX12.a,offdlyl);
+        connect(XX12.b,onlrs);
+        connect(XX12.y,dlyoutl);
+        connect(XX12.vdd,vcc);
+        connect(C13.p,dlyouth);
+        connect(C13.n,com);
+        connect(XX13.a,uvbs);
+        connect(XX13.b,dlyouth);
+        connect(XX13.y,onh);
+        connect(XX13.vdd,vcc);
+        connect(R13.p,hinstb);
+        connect(R13.n,hdelay);
+        connect(C14.p,hdelay);
+        connect(C14.n,com);
+        connect(XX14.a,hinstb);
+        connect(XX14.b,ldelayb);
+        connect(XX14.y,hino);
+        connect(XX14.vdd,vcc);
+        connect(XX16.a,linstb);
+        connect(XX16.b,hdelayb);
+        connect(XX16.y,lino);
+        connect(XX16.vdd,vcc);
+        connect(R14.p,linstb);
+        connect(R14.n,ldelay);
+        connect(C15.p,ldelay);
+        connect(C15.n,com);
+        connect(XX15.a,hinst);
+        connect(XX15.y,hinstb);
+        connect(XX15.vdd,vcc);
+        connect(XX17.a,hdelay);
+        connect(XX17.y,hdelayb);
+        connect(XX17.vdd,vcc);
+        connect(XX18.a,linst);
+        connect(XX18.y,linstb);
+        connect(XX18.vdd,vcc);
+        connect(XX19.a,ldelay);
+        connect(XX19.y,ldelayb);
+        connect(XX19.vdd,vcc);
+        connect(R17.p,bias4);
+        connect(R17.n,dlyhn);
+        connect(C16.p,dlyhn);
+        connect(C16.n,vs);
+        connect(R18.p,bias5);
+        connect(R18.n,dlyhp);
+        connect(C17.p,dlyhp);
+        connect(C17.n,vs);
+        connect(S9.p2,ilhp);
+        connect(S9.n2,vb);
+        connect(S9.p1,dlyhp);
+        connect(S9.n1,vs);
+        connect(S10.p2,vs);
+        connect(S10.n2,ilhn);
+        connect(S10.p1,dlyhn);
+        connect(S10.n1,vs);
+        connect(R19.p,bias6);
+        connect(R19.n,dlyln);
+        connect(C18.p,dlyln);
+        connect(C18.n,com);
+        connect(R20.p,bias7);
+        connect(R20.n,dlylp);
+        connect(C19.p,dlylp);
+        connect(C19.n,com);
+        connect(S11.p2,illp);
+        connect(S11.n2,vcc);
+        connect(S11.p1,dlylp);
+        connect(S11.n1,com);
+        connect(S12.p2,com);
+        connect(S12.n2,illn);
+        connect(S12.p1,dlyln);
+        connect(S12.n1,com);
+    end
+
+    branches
+        E1: bias1.i -> com.i;
+        E2: bias2.i -> com.i;
+        BDLYOFF1: offcontl.i -> com.i;
+        BDLYON1: oncontl.i -> com.i;
+        BDLYOFF2: offconth.i -> com.i;
+        BDLYON2: onconth.i -> com.i;
+        E3: bias4.i -> vs.i;
+        E4: bias5.i -> vs.i;
+        E5: bias6.i -> com.i;
+        E6: bias7.i -> com.i;
+    end
+
+    equations
+        value(bias1.v-com.v,'V') == (1)*value(vcc.v-com.v,'V');
+        value(bias2.v-com.v,'V') == (1)*value(vcc.v-com.v,'V');
+        value(offcontl.v-com.v,'V') == (value(vcc.v,'V')-value(vcc.v,'V')*simscape.function.expm(-(100*1e-09)/( ...
+            51.5*1e-09), expXl, expXh, aWarning));
+        value(oncontl.v-com.v,'V') == value(vcc.v,'V')*simscape.function.expm(-(95*1e-09)/(52*1e-09), expXl,  ...
+            expXh, aWarning);
+        value(offconth.v-com.v,'V') == (value(vcc.v,'V')-value(vcc.v,'V')*simscape.function.expm(-(100*1e-09)/( ...
+            51*1e-09), expXl, expXh, aWarning));
+        value(onconth.v-com.v,'V') == value(vcc.v,'V')*simscape.function.expm(-(95*1e-09)/(53*1e-09), expXl,  ...
+            expXh, aWarning);
+        value(bias4.v-vs.v,'V') == (1)*value(ho.v-drvhn.v,'V');
+        value(bias5.v-vs.v,'V') == (1)*value(drvhp.v-ho.v,'V');
+        value(bias6.v-com.v,'V') == (1)*value(lo.v-drvln.v,'V');
+        value(bias7.v-com.v,'V') == (1)*value(drvlp.v-lo.v,'V');
+    end
+
+end

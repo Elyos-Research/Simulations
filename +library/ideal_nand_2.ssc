@@ -1,0 +1,88 @@
+component ideal_nand_2
+% ideal_nand_2
+% Component automatically generated from a SPICE netlist for subcircuit IDEAL_NAND_2.
+%   MATLAB version: 23.2.
+%   Simscape Electrical version: 23.2.
+%   Simscape code generated on: 08-Jul-2024 21:07:46
+
+
+    nodes
+        a = foundation.electrical.electrical; % a
+        b = foundation.electrical.electrical; % b
+        y = foundation.electrical.electrical; % y
+        vdd = foundation.electrical.electrical; % vdd
+    end
+
+    nodes(Access=protected, ExternalAccess=none)
+        vtrip = foundation.electrical.electrical;
+        n001 = foundation.electrical.electrical;
+    end
+
+    annotations
+        UILayout = [
+            UIGroup('Parasitic elements', ...
+                    specifyParasiticValues, capacitorSeriesResistance)
+                   ]
+    end
+
+    parameters
+        specifyParasiticValues = ee.enum.include.no;    % Specify parasitic values
+    end
+
+    parameters(ExternalAccess=none)
+        capacitorSeriesResistance = {0, 'Ohm'};    % Capacitor parasitic series resistance
+    end
+
+    if specifyParasiticValues == ee.enum.include.yes
+        annotations
+            [capacitorSeriesResistance] : ExternalAccess=modify;
+        end
+    end
+
+    variables
+        E1 = {value={0,'A'},priority=priority.none};
+    end
+
+    components(ExternalAccess=observe)
+        S1 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={0,'V'},VH={1e-06,'V'},Roff_gmin=1,ROFF={10000000,'Ohm'}, ...
+            RON={0.001,'Ohm'},TD={0,'s'});
+        S2 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={0,'V'},VH={1e-06,'V'},Roff_gmin=1,ROFF={10000000,'Ohm'}, ...
+            RON={0.001,'Ohm'},TD={0,'s'});
+        S3 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={0,'V'},VH={1e-06,'V'},Roff_gmin=1,ROFF={10000000,'Ohm'}, ...
+            RON={0.001,'Ohm'},TD={0,'s'});
+        S5 = ee.additional.spice_passives.vswitch(SWITCH_model=2,VT={0,'V'},VH={1e-06,'V'},Roff_gmin=1,ROFF={10000000,'Ohm'}, ...
+            RON={0.001,'Ohm'},TD={0,'s'});
+        C1 = foundation.electrical.elements.capacitor(c={(10*1e-12),'F'},r=capacitorSeriesResistance,g={0,'1/Ohm'}, ...
+            vc.priority=priority.none);
+    end
+
+    connections
+        connect(S1.p2,y);
+        connect(S1.n2,vdd);
+        connect(S1.p1,vtrip);
+        connect(S1.n1,a);
+        connect(S2.p2,n001);
+        connect(S2.n2,y);
+        connect(S2.p1,a);
+        connect(S2.n1,vtrip);
+        connect(S3.p2,y);
+        connect(S3.n2,vdd);
+        connect(S3.p1,vtrip);
+        connect(S3.n1,b);
+        connect(S5.p2,*);
+        connect(S5.n2,n001);
+        connect(S5.p1,b);
+        connect(S5.n1,vtrip);
+        connect(C1.p,y);
+        connect(C1.n,*);
+    end
+
+    branches
+        E1: vtrip.i -> *;
+    end
+
+    equations
+        value(vtrip.v,'V') == (0.5)*value(vdd.v,'V');
+    end
+
+end
